@@ -1,8 +1,22 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_app/router/router.dart';
+import 'package:recipe_app/api/api.dart';
+import 'package:recipe_app/core/router/router.dart';
+import 'package:recipe_app/core/domain/models/meal.dart';
 
-void main() {
-  runApp(const RecipeApp());
+void main() async {
+  final dio = Dio();
+  final apiClient = RecipeApiClient(dio);
+  try {
+    final Meals response = await apiClient.getMealsByName('burger');
+    final List<Meal> meals = response.meals!;
+    for (Meal meal in meals) {
+      print(meal.strArea);
+    }
+  } catch (e) {
+    print('Error: $e');
+  }
+  runApp(RecipeApp());
 }
 
 class RecipeApp extends StatefulWidget {

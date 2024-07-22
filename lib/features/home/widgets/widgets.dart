@@ -1,2 +1,2 @@
 export 'categories_list_view.dart';
-export 'food_cards_grid_view.dart';
+export '../../../common/widgets/meals_cards_grid.dart';

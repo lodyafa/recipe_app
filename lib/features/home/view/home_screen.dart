@@ -8,38 +8,36 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Row(
-          children: [
-            Icon(Icons.sunny),
-            SizedBox(width: 8),
-            Text("Good Morning!"),
-          ],
-        ),
-        centerTitle: false,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Category",
-              style: theme.textTheme.titleMedium,
+    // final theme = Theme.of(context);
+    return const Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: Column(
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.sunny),
+                    SizedBox(width: 8),
+                    Text("Good Morning!"),
+                  ],
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
-            const CategoriesListView(),
-            const SizedBox(height: 10),
-            const FoodCardsGridView(),
-          ],
-        ),
+            centerTitle: false,
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(left: 16),
+              child: CategoriesListView(),
+            ),
+          ),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            sliver: MealsSliverGrid(),
+          ),
+        ],
       ),
     );
   }
 }
-
-
-
