@@ -21,6 +21,33 @@ class _RecipeApiClient implements RecipeApiClient {
   String? baseUrl;
 
   @override
+  Future<Meals> getRandomMeal() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Meals>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'random.php',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = Meals.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
   Future<Meals> getMealsByName(String search) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r's': search};
@@ -35,6 +62,33 @@ class _RecipeApiClient implements RecipeApiClient {
             .compose(
               _dio.options,
               'search.php',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = Meals.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
+  Future<Meals> getMealsByCategory(String category) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'с': category};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Meals>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'filter.php',
               queryParameters: queryParameters,
               data: _data,
             )

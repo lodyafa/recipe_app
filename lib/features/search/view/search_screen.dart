@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/common/widgets/widgets.dart';
+import 'package:recipe_app/features/search/search_bloc/search_bloc.dart';
 
 @RoutePage()
 class SearchScreen extends StatelessWidget {
@@ -8,7 +11,6 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Theme.of(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -29,15 +31,74 @@ class SearchScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
+                  onChanged: (value) {
+                    context.read<SearchBloc>().add(SearchMealEvent(value));
+                  },
                 ),
               ),
             ),
           ),
-          const SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            sliver: MealsSliverList(),
+          BlocBuilder<SearchBloc, SearchState>(
+            builder: (context, state) {
+              if (state is SearchInitialState) {
+                return const SearchInfoText(
+                  text: "Search something...",
+                );
+              }
+              if (state is SearchLoadedState) {
+                if (state.meals.isEmpty) {
+                  return const SearchInfoText(
+                    text: "Oops, nothing found...",
+                  );
+                }
+                return SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  sliver: MealsSliverList(
+                    meals: state.meals,
+                  ),
+                );
+              }
+              return SliverToBoxAdapter(
+                child: Animate(
+                  effects: const [
+                    FadeEffect(
+                      duration: Duration(milliseconds: 400),
+                    ),
+                  ],
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              );
+            },
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SearchInfoText extends StatelessWidget {
+  const SearchInfoText({
+    super.key,
+    required this.text,
+  });
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Animate(
+        key: ValueKey(text),
+        effects: const [
+          FadeEffect(
+            duration: Duration(milliseconds: 400),
+          ),
+        ],
+        child: Center(
+          child: Text(text),
+        ),
       ),
     );
   }

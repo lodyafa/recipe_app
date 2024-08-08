@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_app/common/widgets/widgets.dart';
+// import 'package:recipe_app/common/widgets/widgets.dart';
 
 @RoutePage()
 class FavoritesScreen extends StatelessWidget {
@@ -19,7 +19,7 @@ class FavoritesScreen extends StatelessWidget {
           ),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            sliver: MealsSliverList(),
+            // sliver: MealsSliverList(),
           ),
         ],
       ),

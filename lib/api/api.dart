@@ -8,6 +8,12 @@ part 'api.g.dart';
 abstract class RecipeApiClient {
   factory RecipeApiClient(Dio dio, {String baseUrl}) = _RecipeApiClient;
 
+  @GET('random.php')
+  Future<Meals> getRandomMeal();
+
   @GET('search.php')
   Future<Meals> getMealsByName(@Query("s") String search);
+
+  @GET('filter.php')
+  Future<Meals> getMealsByCategory(@Query("с") String category);
 }

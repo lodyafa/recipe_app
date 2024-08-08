@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/core/domain/domain.dart';
 
 class MealGridCard extends StatelessWidget {
   const MealGridCard({
     super.key,
+    required this.meal,
   });
+
+  final Meal meal;
+
+  static const String _defaultImage =
+      "https://cdn-icons-png.flaticon.com/512/5519/5519632.png";
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +37,9 @@ class MealGridCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: theme.canvasColor,
                 borderRadius: BorderRadius.circular(16),
-                image: const DecorationImage(
+                image: DecorationImage(
                   image: NetworkImage(
-                    "https://natashaskitchen.com/wp-content/uploads/2023/05/Taco-Bowls-SQ.jpg",
+                    meal.strMealThumb ?? _defaultImage,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -40,7 +47,7 @@ class MealGridCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Text(
-              "Healthy Taco Salad with fresh vegetable",
+              meal.strMeal ?? "Null",
               textAlign: TextAlign.center,
               style: theme.textTheme.titleSmall,
               maxLines: 2,
@@ -55,14 +62,13 @@ class MealGridCard extends StatelessWidget {
 
 class MealListCard extends StatelessWidget {
   const MealListCard({
-    super.key,
-    required this.theme,
+    super.key, required this.meal,
   });
-
-  final ThemeData theme;
+   final Meal meal;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       height: 100,
       decoration: BoxDecoration(
@@ -84,8 +90,9 @@ class MealListCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: theme.canvasColor,
                 borderRadius: BorderRadius.circular(16),
-                image: const DecorationImage(
+                image:  DecorationImage(
                   image: NetworkImage(
+                    meal.strMealThumb ??
                     "https://natashaskitchen.com/wp-content/uploads/2023/05/Taco-Bowls-SQ.jpg",
                   ),
                   fit: BoxFit.cover,
@@ -95,7 +102,7 @@ class MealListCard extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: Text(
-                "Healthy Taco Salad with fresh vegetable",
+                meal.strMeal ?? "Null",
                 textAlign: TextAlign.start,
                 style: theme.textTheme.titleSmall,
                 maxLines: 2,

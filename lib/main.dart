@@ -1,27 +1,25 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/api/api.dart';
+import 'package:recipe_app/core/domain/repositories/repositories.dart';
 import 'package:recipe_app/core/router/router.dart';
-import 'package:recipe_app/core/domain/models/meal.dart';
+import 'package:recipe_app/features/home/home.dart';
+import 'package:recipe_app/features/search/search_bloc/search_bloc.dart';
 
 void main() async {
   final dio = Dio();
   final apiClient = RecipeApiClient(dio);
-  try {
-    final Meals response = await apiClient.getMealsByName('burger');
-    final List<Meal> meals = response.meals!;
-    for (Meal meal in meals) {
-      print(meal.strArea);
-    }
-  } catch (e) {
-    print('Error: $e');
-  }
-  runApp(RecipeApp());
+  final mealsRepo = MealsRepository(apiClient: apiClient);
+  runApp(RecipeApp(
+    mealsRepository: mealsRepo,
+  ));
 }
 
 class RecipeApp extends StatefulWidget {
-  const RecipeApp({super.key});
+  const RecipeApp({super.key, required this.mealsRepository});
 
+  final MealsRepositoryInterface mealsRepository;
   @override
   State<RecipeApp> createState() => _RecipeAppState();
 }
@@ -31,13 +29,36 @@ class _RecipeAppState extends State<RecipeApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Recipe App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<MealsRepositoryInterface>(
+          create: (context) => widget.mealsRepository,
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => HomeBloc(
+              mealsRepository:
+                  RepositoryProvider.of<MealsRepositoryInterface>(context),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => SearchBloc(
+              mealsRepository:
+                  RepositoryProvider.of<MealsRepositoryInterface>(context),
+            ),
+          ),
+        ],
+        child: MaterialApp.router(
+          title: 'Recipe App',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          routerConfig: _router.config(),
+        ),
       ),
-      routerConfig: _router.config(),
     );
   }
 }

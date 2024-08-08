@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/core/domain/domain.dart';
 import 'package:recipe_app/uikit/cards/cards.dart';
 
 class MealsSliverGrid extends StatelessWidget {
   const MealsSliverGrid({
     super.key,
+    required this.meals,
   });
+
+  final List<Meal> meals;
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +19,10 @@ class MealsSliverGrid extends StatelessWidget {
         mainAxisSpacing: 16, // Расстояние между строками
         childAspectRatio: 4 / 5, // Пропорции ширины и высоты карточек
       ),
-      itemCount: 10,
+      itemCount: meals.length,
       itemBuilder: (context, index) {
-        return MealGridCard();
+        final meal = meals[index];
+        return MealGridCard(meal: meal);
       },
     );
   }
