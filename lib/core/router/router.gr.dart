@@ -21,6 +21,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AccountScreen(),
       );
     },
+    BeefCategoryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const BeefCategoryTab(),
+      );
+    },
     FavoritesRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -31,6 +37,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const HomeScreen(),
+      );
+    },
+    PastaCategoryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PastaCategoryTab(),
       );
     },
     RootRoute.name: (routeData) {
@@ -63,6 +75,20 @@ class AccountRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [BeefCategoryTab]
+class BeefCategoryRoute extends PageRouteInfo<void> {
+  const BeefCategoryRoute({List<PageRouteInfo>? children})
+      : super(
+          BeefCategoryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'BeefCategoryRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [FavoritesScreen]
 class FavoritesRoute extends PageRouteInfo<void> {
   const FavoritesRoute({List<PageRouteInfo>? children})
@@ -86,6 +112,20 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PastaCategoryTab]
+class PastaCategoryRoute extends PageRouteInfo<void> {
+  const PastaCategoryRoute({List<PageRouteInfo>? children})
+      : super(
+          PastaCategoryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PastaCategoryRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

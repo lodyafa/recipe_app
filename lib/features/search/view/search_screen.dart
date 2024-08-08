@@ -88,6 +88,7 @@ class SearchInfoText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(this.hashCode);
     return SliverToBoxAdapter(
       child: Animate(
         key: ValueKey(text),
