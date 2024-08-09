@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_app/core/domain/domain.dart';
+import 'package:recipe_app/features/home/blocs/blocs.dart';
 
 class CategoriesListView extends StatefulWidget {
   const CategoriesListView({
@@ -15,18 +18,43 @@ class CategoriesListView extends StatefulWidget {
 class _CategoriesListViewState extends State<CategoriesListView> {
   late final ScrollController _scrollController;
 
+  static const _categories = [
+    "Beef",
+    "Chicken",
+    "Dessert",
+    "Lamb",
+    "Miscellaneous",
+    "Pasta",
+    "Pork",
+    "Seafood",
+    "Side",
+    "Starter",
+    "Vegan",
+    "Vegetarian",
+    "Breakfast",
+    "Goat"
+  ];
+
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    // _scrollController.addListener(() {
-    //   if (_scrollController.offset > 0) {
 
-    //     setState(() {});
-    //   } else if (_scrollController.offset == 0) {
-    //     setState(() {});
-    //   }
-    // });
+    widget.tabController.addListener(_listenToTabScroll);
+  }
+
+  void _listenToTabScroll() {
+    final tabController = widget.tabController;
+
+    if (tabController.index == 0) return;
+
+    BlocProvider.of<HomeCategoriesBloc>(context).add(
+      HomeLoadCategoryEvent(
+        category: MealCategory.fromString(
+          _categories[tabController.index],
+        ),
+      ),
+    );
   }
 
   bool _removePadding() {
@@ -56,12 +84,12 @@ class _CategoriesListViewState extends State<CategoriesListView> {
                 decoration: BoxDecoration(
                     color: curIndex == index ? Colors.red : theme.primaryColor,
                     borderRadius: BorderRadius.circular(16)),
-                child: const Text("Chicken"),
+                child: Text(_categories[index]),
               ),
             );
           },
           separatorBuilder: (context, index) => const SizedBox(width: 10),
-          itemCount: 5,
+          itemCount: _categories.length,
         ),
       ),
     );
@@ -70,6 +98,7 @@ class _CategoriesListViewState extends State<CategoriesListView> {
   @override
   void dispose() {
     _scrollController.dispose();
+    widget.tabController.removeListener(_listenToTabScroll);
     super.dispose();
   }
 }

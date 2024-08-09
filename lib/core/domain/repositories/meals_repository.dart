@@ -19,4 +19,20 @@ class MealsRepository implements MealsRepositoryInterface {
     final Meals meals = await _apiClient.getRandomMeal();
     return meals.meals!.first;
   }
+
+  @override
+  Future<List<Meal>> getMealsByCategory(String category) async {
+    final Meals meals = await _apiClient.getMealsByCategory(category);
+    return meals.meals ?? [];
+  }
+
+  // @override
+  // Future<Meal> getBeefCategoryMeal() {
+
+  // }
+
+  // @override
+  // Future<Meal> getPastaCategoryMeal() {
+
+  // }
 }

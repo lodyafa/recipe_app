@@ -13,6 +13,8 @@ class HomeScreen extends StatelessWidget {
     return AutoTabsRouter.tabBar(
       routes: const [
         BeefCategoryRoute(),
+        ChickenCategoryRoute(),
+        DessertCategoryRoute(),
         PastaCategoryRoute(),
       ],
       builder: (context, child, tabController) {

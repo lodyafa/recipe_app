@@ -77,7 +77,7 @@ class _RecipeApiClient implements RecipeApiClient {
   @override
   Future<Meals> getMealsByCategory(String category) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'с': category};
+    final queryParameters = <String, dynamic>{r'c': category};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result =

@@ -44,6 +44,7 @@ dependencies:
   stream_transform: ^2.1.0
   bloc_concurrency: ^0.2.5
   flutter_animate: ^4.5.0
+  bloc: ^8.1.4
 
 dev_dependencies:
   flutter_test:

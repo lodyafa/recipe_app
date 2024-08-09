@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:recipe_app/features/account/view/account_screen.dart';
 import 'package:recipe_app/features/favorites/view/favorites_screen.dart';
-import 'package:recipe_app/features/home/view/beef_category_tab.dart';
 import 'package:recipe_app/features/home/view/home_screen.dart';
-import 'package:recipe_app/features/home/view/pasta_category_tab.dart';
 import 'package:recipe_app/features/root/view/root_screen.dart';
 import 'package:recipe_app/features/search/view/search_screen.dart';
+
+import '../../features/home/view/categories_tabs/categories_tabs.dart';
 
 part 'router.gr.dart';
 
@@ -28,6 +28,14 @@ class AppRouter extends _$AppRouter {
                 AutoRoute(
                   page: PastaCategoryRoute.page,
                   path: "pasta_category",
+                ),
+                AutoRoute(
+                  page: ChickenCategoryRoute.page,
+                  path: "chicken_category",
+                ),
+                AutoRoute(
+                  page: DessertCategoryRoute.page,
+                  path: "dessert_category",
                 ),
               ],
             ),

@@ -15,5 +15,5 @@ abstract class RecipeApiClient {
   Future<Meals> getMealsByName(@Query("s") String search);
 
   @GET('filter.php')
-  Future<Meals> getMealsByCategory(@Query("с") String category);
+  Future<Meals> getMealsByCategory(@Query("c") String category);
 }

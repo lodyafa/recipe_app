@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/api/api.dart';
 import 'package:recipe_app/core/domain/repositories/repositories.dart';
 import 'package:recipe_app/core/router/router.dart';
-import 'package:recipe_app/features/home/home.dart';
+import 'package:recipe_app/features/home/blocs/home_categories_bloc/home_categories_bloc.dart';
 import 'package:recipe_app/features/search/search_bloc/search_bloc.dart';
 
 void main() async {
@@ -37,8 +37,9 @@ class _RecipeAppState extends State<RecipeApp> {
       ],
       child: MultiBlocProvider(
         providers: [
+          
           BlocProvider(
-            create: (context) => HomeBloc(
+            create: (context) => HomeCategoriesBloc(
               mealsRepository:
                   RepositoryProvider.of<MealsRepositoryInterface>(context),
             ),

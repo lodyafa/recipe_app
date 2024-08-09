@@ -27,6 +27,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const BeefCategoryTab(),
       );
     },
+    ChickenCategoryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ChickenCategoryTab(),
+      );
+    },
+    DessertCategoryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const DessertCategoryTab(),
+      );
+    },
     FavoritesRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -84,6 +96,34 @@ class BeefCategoryRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'BeefCategoryRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ChickenCategoryTab]
+class ChickenCategoryRoute extends PageRouteInfo<void> {
+  const ChickenCategoryRoute({List<PageRouteInfo>? children})
+      : super(
+          ChickenCategoryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ChickenCategoryRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [DessertCategoryTab]
+class DessertCategoryRoute extends PageRouteInfo<void> {
+  const DessertCategoryRoute({List<PageRouteInfo>? children})
+      : super(
+          DessertCategoryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DessertCategoryRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
