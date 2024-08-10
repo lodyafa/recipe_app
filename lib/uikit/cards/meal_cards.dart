@@ -19,7 +19,7 @@ class MealGridCard extends StatelessWidget {
       height: 240,
       width: 200,
       decoration: BoxDecoration(
-        color: theme.primaryColor,
+        color: theme.hoverColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
@@ -73,7 +73,7 @@ class MealListCard extends StatelessWidget {
     return Container(
       height: 100,
       decoration: BoxDecoration(
-        color: theme.primaryColor,
+        color: theme.hoverColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(

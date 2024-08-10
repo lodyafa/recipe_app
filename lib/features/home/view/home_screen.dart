@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Theme.of(context);
+    final theme = Theme.of(context);
     return AutoTabsRouter.tabBar(
       routes: const [
         BeefCategoryRoute(),
@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
       ],
       builder: (context, child, tabController) {
         return Scaffold(
+          backgroundColor: theme.scaffoldBackgroundColor,
           body: NestedScrollView(
             headerSliverBuilder: (context, isScrolling) {
               return [
@@ -39,8 +40,13 @@ class HomeScreen extends StatelessWidget {
                   ),
                   bottom: PreferredSize(
                     preferredSize: const Size(double.infinity, 40),
-                    child: CategoriesListView(
-                      tabController: tabController,
+                    child: Column(
+                      children: [
+                        CategoriesListView(
+                          tabController: tabController,
+                        ),
+                        const SizedBox(height: 10),
+                      ],
                     ),
                   ),
                   centerTitle: false,

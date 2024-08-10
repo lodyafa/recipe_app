@@ -24,7 +24,7 @@ class ChickenCategoryTab extends StatelessWidget {
             if (state is HomeCategoriesLoadedState)
               SliverPadding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                 sliver: MealsSliverGrid(
                   meals: state.chickenCategoryMeals,
                 ),

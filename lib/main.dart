@@ -2,10 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/api/api.dart';
+import 'package:recipe_app/core/blocs/theme_cubit/theme_cubit.dart';
 import 'package:recipe_app/core/domain/repositories/repositories.dart';
 import 'package:recipe_app/core/router/router.dart';
 import 'package:recipe_app/features/home/blocs/home_categories_bloc/home_categories_bloc.dart';
 import 'package:recipe_app/features/search/search_bloc/search_bloc.dart';
+import 'package:recipe_app/uikit/theme/app_theme_data.dart';
 
 void main() async {
   final dio = Dio();
@@ -37,7 +39,6 @@ class _RecipeAppState extends State<RecipeApp> {
       ],
       child: MultiBlocProvider(
         providers: [
-          
           BlocProvider(
             create: (context) => HomeCategoriesBloc(
               mealsRepository:
@@ -50,14 +51,20 @@ class _RecipeAppState extends State<RecipeApp> {
                   RepositoryProvider.of<MealsRepositoryInterface>(context),
             ),
           ),
-        ],
-        child: MaterialApp.router(
-          title: 'Recipe App',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
+          BlocProvider(
+            create: (context) => ThemeCubit(),
           ),
-          routerConfig: _router.config(),
+        ],
+        child: BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, state) {
+            return MaterialApp.router(
+              title: 'Recipe App',
+              theme: AppThemeData.lightTheme,
+              darkTheme: AppThemeData.darkTheme,
+              themeMode: state.themeMode,
+              routerConfig: _router.config(),
+            );
+          },
         ),
       ),
     );

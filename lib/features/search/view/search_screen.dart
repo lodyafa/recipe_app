@@ -11,6 +11,7 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -27,8 +28,10 @@ class SearchScreen extends StatelessWidget {
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.search),
                     hintText: "Search",
+                    hintStyle: TextStyle(color: theme.hintColor),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
+                      
                     ),
                   ),
                   onChanged: (value) {
@@ -48,7 +51,7 @@ class SearchScreen extends StatelessWidget {
               if (state is SearchLoadedState) {
                 if (state.meals.isEmpty) {
                   return const SearchInfoText(
-                    text: "Oops, nothing found...",
+                    text: "Ooops, nothing found...",
                   );
                 }
                 return SliverPadding(
@@ -88,7 +91,6 @@ class SearchInfoText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(this.hashCode);
     return SliverToBoxAdapter(
       child: Animate(
         key: ValueKey(text),

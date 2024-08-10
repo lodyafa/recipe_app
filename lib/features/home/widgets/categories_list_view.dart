@@ -82,8 +82,10 @@ class _CategoriesListViewState extends State<CategoriesListView> {
                 alignment: Alignment.center,
                 width: 110,
                 decoration: BoxDecoration(
-                    color: curIndex == index ? Colors.red : theme.primaryColor,
-                    borderRadius: BorderRadius.circular(16)),
+                  color:
+                      curIndex == index ? theme.primaryColor : theme.hoverColor,
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 child: Text(_categories[index]),
               ),
             );
