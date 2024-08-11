@@ -27,10 +27,10 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
 
   const AppColorScheme.light()
       : primary = const Color(0xFF70B9BE),
-        onPrimary = const Color(0xFFFFFFFF),
-        primaryContainer = const Color(0xFFC8BFE6),
+        onPrimary = Colors.black,
+        primaryContainer = const Color(0xFFF1F5F5),
         onPrimaryContainer = const Color(0xFF1E1833),
-        secondary = const Color.fromARGB(255, 158, 158, 158),
+        secondary = const Color(0xFF757477),
         onSecondary = const Color.fromARGB(255, 63, 63, 63),
         secondaryContainer = const Color(0xFFDCD8E6),
         onSecondaryContainer = const Color(0xFF2C2933),
@@ -42,7 +42,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
         onError = const Color(0xFFFFFFFF),
         errorContainer = const Color(0xFFE6ACA9),
         onErrorContainer = const Color(0xFF330B09),
-        background = const Color(0xFFF5F5F5),
+        background = Colors.white,
         onBackground = Colors.black,
         surface = const Color.fromARGB(255, 242, 242, 242),
         onSurface = const Color(0xFF323233),
@@ -51,8 +51,8 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
 
   const AppColorScheme.dark()
       : primary = const Color(0xFF70B9BE),
-        onPrimary = Colors.black,
-        primaryContainer = const Color(0xFF211C33),
+        onPrimary = Colors.white,
+        primaryContainer = const Color(0xFF282828),
         onPrimaryContainer = const Color(0xFFC8BFE6),
         secondary = const Color(0xFF757477),
         onSecondary = const Color(0xFFFFFFFF),

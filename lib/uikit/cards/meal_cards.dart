@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:recipe_app/core/domain/domain.dart';
+import 'package:recipe_app/uikit/colors/colors.dart';
 
 class MealGridCard extends StatelessWidget {
   const MealGridCard({
@@ -14,12 +16,12 @@ class MealGridCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final colorScheme = AppColorScheme.of(context);
     return Container(
       height: 240,
       width: 200,
       decoration: BoxDecoration(
-        color: theme.hoverColor,
+        color: colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
@@ -31,17 +33,21 @@ class MealGridCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              height: 118,
-              width: 132,
-              decoration: BoxDecoration(
-                color: theme.canvasColor,
-                borderRadius: BorderRadius.circular(16),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    meal.strMealThumb ?? _defaultImage,
+            Animate(
+              effects: const [
+                FadeEffect(),
+              ],
+              child: Container(
+                height: 118,
+                width: 132,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      meal.strMealThumb ?? _defaultImage,
+                    ),
+                    fit: BoxFit.cover,
                   ),
-                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -49,7 +55,9 @@ class MealGridCard extends StatelessWidget {
             Text(
               meal.strMeal ?? "Null",
               textAlign: TextAlign.center,
-              style: theme.textTheme.titleSmall,
+              style: TextStyle(
+                color: colorScheme.onBackground,
+              ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -69,11 +77,11 @@ class MealListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final colorScheme = AppColorScheme.of(context);
     return Container(
       height: 100,
       decoration: BoxDecoration(
-        color: theme.hoverColor,
+        color: colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
@@ -89,7 +97,6 @@ class MealListCard extends StatelessWidget {
               height: 80,
               width: 100,
               decoration: BoxDecoration(
-                color: theme.canvasColor,
                 borderRadius: BorderRadius.circular(16),
                 image: DecorationImage(
                   image: NetworkImage(
@@ -105,7 +112,9 @@ class MealListCard extends StatelessWidget {
               child: Text(
                 meal.strMeal ?? "Null",
                 textAlign: TextAlign.start,
-                style: theme.textTheme.titleSmall,
+                style: TextStyle(
+                  color: colorScheme.onBackground,
+                ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -114,7 +123,7 @@ class MealListCard extends StatelessWidget {
               onPressed: () {},
               icon: Icon(
                 Icons.favorite_border,
-                color: theme.hintColor,
+                color: colorScheme.secondary,
               ),
             ),
           ],

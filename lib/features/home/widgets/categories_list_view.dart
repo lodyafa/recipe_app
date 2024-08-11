@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/core/domain/domain.dart';
 import 'package:recipe_app/features/home/blocs/blocs.dart';
+import 'package:recipe_app/uikit/colors/colors.dart';
 
 class CategoriesListView extends StatefulWidget {
   const CategoriesListView({
@@ -64,8 +65,8 @@ class _CategoriesListViewState extends State<CategoriesListView> {
   @override
   Widget build(BuildContext context) {
     final int curIndex = widget.tabController.index;
+    final colorScheme = AppColorScheme.of(context);
 
-    final theme = Theme.of(context);
     return Padding(
       padding: EdgeInsets.only(
         left: _removePadding() ? 0 : 16,
@@ -82,11 +83,19 @@ class _CategoriesListViewState extends State<CategoriesListView> {
                 alignment: Alignment.center,
                 width: 110,
                 decoration: BoxDecoration(
-                  color:
-                      curIndex == index ? theme.primaryColor : theme.hoverColor,
+                  color: curIndex == index
+                      ? colorScheme.primary
+                      : colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Text(_categories[index]),
+                child: Text(
+                  _categories[index],
+                  style: TextStyle(
+                    color: curIndex == index
+                        ? colorScheme.background
+                        : colorScheme.onBackground,
+                  ),
+                ),
               ),
             );
           },

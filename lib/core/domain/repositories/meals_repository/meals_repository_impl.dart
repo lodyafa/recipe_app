@@ -1,6 +1,6 @@
 import 'package:recipe_app/api/api.dart';
 import 'package:recipe_app/core/domain/models/meal.dart';
-import 'package:recipe_app/core/domain/repositories/meals_repository_interface.dart';
+import 'package:recipe_app/core/domain/repositories/meals_repository/i_meals_repository.dart';
 
 class MealsRepository implements MealsRepositoryInterface {
   MealsRepository({required RecipeApiClient apiClient})

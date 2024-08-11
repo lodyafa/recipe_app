@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/common/widgets/widgets.dart';
 import 'package:recipe_app/features/search/search_bloc/search_bloc.dart';
+import 'package:recipe_app/uikit/colors/colors.dart';
 
 @RoutePage()
 class SearchScreen extends StatelessWidget {
@@ -11,14 +12,19 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final colorScheme = AppColorScheme.of(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             pinned: true,
             floating: true,
-            title: const Text("Search"),
+            title: Text(
+              "Search",
+              style: TextStyle(
+                color: colorScheme.onBackground,
+              ),
+            ),
             surfaceTintColor: Colors.transparent,
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(72),
@@ -28,10 +34,9 @@ class SearchScreen extends StatelessWidget {
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.search),
                     hintText: "Search",
-                    hintStyle: TextStyle(color: theme.hintColor),
+                    hintStyle: TextStyle(color: colorScheme.secondary),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
-                      
                     ),
                   ),
                   onChanged: (value) {
@@ -91,6 +96,7 @@ class SearchInfoText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = AppColorScheme.of(context);
     return SliverToBoxAdapter(
       child: Animate(
         key: ValueKey(text),
@@ -100,7 +106,12 @@ class SearchInfoText extends StatelessWidget {
           ),
         ],
         child: Center(
-          child: Text(text),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: colorScheme.onBackground,
+            ),
+          ),
         ),
       ),
     );

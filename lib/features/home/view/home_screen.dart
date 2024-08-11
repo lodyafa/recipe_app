@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/core/router/router.dart';
 import 'package:recipe_app/features/home/widgets/widgets.dart';
+import 'package:recipe_app/uikit/colors/colors.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -9,7 +10,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return AutoTabsRouter.tabBar(
       routes: const [
         BeefCategoryRoute(),
@@ -18,8 +18,8 @@ class HomeScreen extends StatelessWidget {
         PastaCategoryRoute(),
       ],
       builder: (context, child, tabController) {
+        final colorScheme = AppColorScheme.of(context);
         return Scaffold(
-          backgroundColor: theme.scaffoldBackgroundColor,
           body: NestedScrollView(
             headerSliverBuilder: (context, isScrolling) {
               return [
@@ -27,13 +27,18 @@ class HomeScreen extends StatelessWidget {
                   pinned: false,
                   floating: true,
                   snap: true,
-                  title: const Column(
+                  title: Column(
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.sunny),
-                          SizedBox(width: 8),
-                          Text("Good Morning!"),
+                          Icon(Icons.sunny, color: colorScheme.onBackground,),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Good Morning!",
+                            style: TextStyle(
+                              color: colorScheme.onBackground,
+                            ),
+                          ),
                         ],
                       ),
                     ],

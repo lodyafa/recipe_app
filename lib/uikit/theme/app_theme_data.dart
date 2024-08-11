@@ -1,20 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/uikit/colors/colors.dart';
 
-const primaryColor = Color(0xFF70B9BE);
-final themeData = ThemeData(
-  primaryColor: primaryColor,
-  useMaterial3: true,
-  scaffoldBackgroundColor: const Color(0xFFF5F5F5),
-  appBarTheme: const AppBarTheme(
-    backgroundColor: Color(0xFFF5F5F5),
-  ),
-  colorScheme: ColorScheme.fromSeed(
-    seedColor: primaryColor,
-    brightness: Brightness.light,
-  ),
-);
-
 abstract class AppThemeData {
   static final lightTheme = ThemeData(
     extensions: const [
@@ -25,6 +11,7 @@ abstract class AppThemeData {
       brightness: Brightness.light,
       primary: _lightColorScheme.primary,
       onPrimary: _lightColorScheme.onPrimary,
+      primaryContainer: _lightColorScheme.primaryContainer,
       secondary: _lightColorScheme.secondary,
       onSecondary: _lightColorScheme.onSecondary,
       error: _lightColorScheme.error,
@@ -37,6 +24,19 @@ abstract class AppThemeData {
     appBarTheme: AppBarTheme(
       color: _lightColorScheme.background,
     ),
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: _lightColorScheme.background,
+      labelTextStyle: WidgetStatePropertyAll(
+        TextStyle(
+          color: _lightColorScheme.onBackground.withOpacity(0.8),
+        ),
+      ),
+      iconTheme: WidgetStatePropertyAll(
+        IconThemeData(
+          color: _lightColorScheme.onBackground.withOpacity(0.8),
+        ),
+      ),
+    ),
   );
 
   static final darkTheme = ThemeData(
@@ -48,6 +48,7 @@ abstract class AppThemeData {
       brightness: Brightness.dark,
       primary: _darkColorScheme.primary,
       onPrimary: _darkColorScheme.onPrimary,
+      primaryContainer: _darkColorScheme.primaryContainer,
       secondary: _darkColorScheme.secondary,
       onSecondary: _darkColorScheme.onSecondary,
       error: _darkColorScheme.error,
@@ -59,6 +60,19 @@ abstract class AppThemeData {
     scaffoldBackgroundColor: _darkColorScheme.background,
     appBarTheme: AppBarTheme(
       color: _darkColorScheme.background,
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: _darkColorScheme.background,
+      labelTextStyle: WidgetStatePropertyAll(
+        TextStyle(
+          color: _darkColorScheme.onBackground.withOpacity(0.8),
+        ),
+      ),
+      iconTheme: WidgetStatePropertyAll(
+        IconThemeData(
+          color: _darkColorScheme.onBackground.withOpacity(0.8),
+        ),
+      ),
     ),
   );
 

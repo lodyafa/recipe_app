@@ -1,2 +1,2 @@
-export 'meals_repository_interface.dart';
-export 'meals_repository.dart';
+export 'meals_repository/meals_repository.dart';
+export 'theme_mode_repository/theme_mode_repository.dart';

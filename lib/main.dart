@@ -7,21 +7,36 @@ import 'package:recipe_app/core/domain/repositories/repositories.dart';
 import 'package:recipe_app/core/router/router.dart';
 import 'package:recipe_app/features/home/blocs/home_categories_bloc/home_categories_bloc.dart';
 import 'package:recipe_app/features/search/search_bloc/search_bloc.dart';
+import 'package:recipe_app/storage/theme_mode_storage/theme_mode_storage_impl.dart';
 import 'package:recipe_app/uikit/theme/app_theme_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   final dio = Dio();
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
   final apiClient = RecipeApiClient(dio);
+  final themeModeStorage = ThemeModeStorage(prefs: prefs);
   final mealsRepo = MealsRepository(apiClient: apiClient);
-  runApp(RecipeApp(
-    mealsRepository: mealsRepo,
-  ));
+  final themeRepo = ThemeModeRepository(themeModeStorage: themeModeStorage);
+  runApp(
+    RecipeApp(
+      mealsRepository: mealsRepo,
+      themeModeRepository: themeRepo,
+    ),
+  );
 }
 
 class RecipeApp extends StatefulWidget {
-  const RecipeApp({super.key, required this.mealsRepository});
+  const RecipeApp({
+    super.key,
+    required this.mealsRepository,
+    required this.themeModeRepository,
+  });
 
   final MealsRepositoryInterface mealsRepository;
+  final ThemeModeRepositoryInterface themeModeRepository;
   @override
   State<RecipeApp> createState() => _RecipeAppState();
 }
@@ -35,6 +50,9 @@ class _RecipeAppState extends State<RecipeApp> {
       providers: [
         RepositoryProvider<MealsRepositoryInterface>(
           create: (context) => widget.mealsRepository,
+        ),
+        RepositoryProvider<ThemeModeRepositoryInterface>(
+          create: (context) => widget.themeModeRepository,
         ),
       ],
       child: MultiBlocProvider(
@@ -52,7 +70,10 @@ class _RecipeAppState extends State<RecipeApp> {
             ),
           ),
           BlocProvider(
-            create: (context) => ThemeCubit(),
+            create: (context) => ThemeCubit(
+              themeModeRepository:
+                  RepositoryProvider.of<ThemeModeRepositoryInterface>(context),
+            ),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
