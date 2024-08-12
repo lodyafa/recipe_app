@@ -39,16 +39,34 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const FavoritesScreen(),
       );
     },
+    FavoritesShellRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const FavoritesShellScreen(),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const HomeScreen(),
       );
     },
+    HomeShellRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const HomeShellScreen(),
+      );
+    },
     PastaCategoryRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const PastaCategoryTab(),
+      );
+    },
+    RecipeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const RecipeScreen(),
       );
     },
     RootRoute.name: (routeData) {
@@ -61,6 +79,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const SearchScreen(),
+      );
+    },
+    SearchShellRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SearchShellScreen(),
       );
     },
     SettingsRoute.name: (routeData) {
@@ -129,6 +153,20 @@ class FavoritesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FavoritesShellScreen]
+class FavoritesShellRoute extends PageRouteInfo<void> {
+  const FavoritesShellRoute({List<PageRouteInfo>? children})
+      : super(
+          FavoritesShellRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FavoritesShellRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
@@ -143,6 +181,20 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [HomeShellScreen]
+class HomeShellRoute extends PageRouteInfo<void> {
+  const HomeShellRoute({List<PageRouteInfo>? children})
+      : super(
+          HomeShellRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'HomeShellRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [PastaCategoryTab]
 class PastaCategoryRoute extends PageRouteInfo<void> {
   const PastaCategoryRoute({List<PageRouteInfo>? children})
@@ -152,6 +204,20 @@ class PastaCategoryRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'PastaCategoryRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [RecipeScreen]
+class RecipeRoute extends PageRouteInfo<void> {
+  const RecipeRoute({List<PageRouteInfo>? children})
+      : super(
+          RecipeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RecipeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -180,6 +246,20 @@ class SearchRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'SearchRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SearchShellScreen]
+class SearchShellRoute extends PageRouteInfo<void> {
+  const SearchShellRoute({List<PageRouteInfo>? children})
+      : super(
+          SearchShellRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SearchShellRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

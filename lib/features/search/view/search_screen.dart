@@ -6,6 +6,11 @@ import 'package:recipe_app/common/widgets/widgets.dart';
 import 'package:recipe_app/features/search/search_bloc/search_bloc.dart';
 import 'package:recipe_app/uikit/colors/colors.dart';
 
+@RoutePage(name: "SearchShellRoute")
+class SearchShellScreen extends AutoRouter {
+  const SearchShellScreen({super.key});
+}
+
 @RoutePage()
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});

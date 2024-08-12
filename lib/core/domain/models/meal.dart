@@ -1,121 +1,62 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:realm/realm.dart';
+import 'package:recipe_app/api/models/models.dart';
 
-part 'meal.g.dart';
-
-@JsonSerializable()
-class Meals {
-  final List<Meal>? meals;
-
-  Meals({required this.meals});
-
-  factory Meals.fromJson(Map<String, dynamic> json) => _$MealsFromJson(json);
-
-  Map<String, dynamic> toJson() => _$MealsToJson(this);
-}
-
-@JsonSerializable()
 class Meal {
+  final String id;
+  final String name;
+  final String area;
+  final String category;
+  final String description;
+  final List<String> ingredients;
+  final String imageUrl;
+
   Meal({
-    this.idMeal,
-    this.strMeal,
-    this.strCategory,
-    this.strArea,
-    this.strInstructions,
-    this.strMealThumb,
-    this.strTags,
-    this.strYoutube,
-    this.strIngredient1,
-    this.strIngredient2,
-    this.strIngredient3,
-    this.strIngredient4,
-    this.strIngredient5,
-    this.strIngredient6,
-    this.strIngredient7,
-    this.strIngredient8,
-    this.strIngredient9,
-    this.strIngredient10,
-    this.strIngredient11,
-    this.strIngredient12,
-    this.strIngredient13,
-    this.strIngredient14,
-    this.strIngredient15,
-    this.strIngredient16,
-    this.strIngredient17,
-    this.strIngredient18,
-    this.strIngredient19,
-    this.strIngredient20,
-    this.strMeasure1,
-    this.strMeasure2,
-    this.strMeasure3,
-    this.strMeasure4,
-    this.strMeasure5,
-    this.strMeasure6,
-    this.strMeasure7,
-    this.strMeasure8,
-    this.strMeasure9,
-    this.strMeasure10,
-    this.strMeasure11,
-    this.strMeasure12,
-    this.strMeasure13,
-    this.strMeasure14,
-    this.strMeasure15,
-    this.strMeasure16,
-    this.strMeasure17,
-    this.strMeasure18,
-    this.strMeasure19,
-    this.strMeasure20,
+    required this.id,
+    required this.name,
+    required this.area,
+    required this.category,
+    required this.description,
+    required this.ingredients,
+    required this.imageUrl,
   });
 
-  factory Meal.fromJson(Map<String, dynamic> json) => _$MealFromJson(json);
+  ApiMeal toApi() {
+    return ApiMeal(
+      idMeal: id,
+      strMeal: name,
+      strCategory: category,
+      strArea: area,
+      strIngredient1: ingredients[0],
+      strIngredient2: ingredients[1],
+      strIngredient3: ingredients[2],
+      strMealThumb: imageUrl,
+    );
+  }
 
-  final String? idMeal;
-  final String? strMeal;
-  final String? strCategory;
-  final String? strArea;
-  final String? strInstructions;
-  final String? strMealThumb;
-  final String? strTags;
-  final String? strYoutube;
-  final String? strIngredient1;
-  final String? strIngredient2;
-  final String? strIngredient3;
-  final String? strIngredient4;
-  final String? strIngredient5;
-  final String? strIngredient6;
-  final String? strIngredient7;
-  final String? strIngredient8;
-  final String? strIngredient9;
-  final String? strIngredient10;
-  final String? strIngredient11;
-  final String? strIngredient12;
-  final String? strIngredient13;
-  final String? strIngredient14;
-  final String? strIngredient15;
-  final String? strIngredient16;
-  final String? strIngredient17;
-  final String? strIngredient18;
-  final String? strIngredient19;
-  final String? strIngredient20;
-  final String? strMeasure1;
-  final String? strMeasure2;
-  final String? strMeasure3;
-  final String? strMeasure4;
-  final String? strMeasure5;
-  final String? strMeasure6;
-  final String? strMeasure7;
-  final String? strMeasure8;
-  final String? strMeasure9;
-  final String? strMeasure10;
-  final String? strMeasure11;
-  final String? strMeasure12;
-  final String? strMeasure13;
-  final String? strMeasure14;
-  final String? strMeasure15;
-  final String? strMeasure16;
-  final String? strMeasure17;
-  final String? strMeasure18;
-  final String? strMeasure19;
-  final String? strMeasure20;
+  factory Meal.fromApi(ApiMeal apiMeal) {
+    List<String> ingredients = [
+      apiMeal.strIngredient1 ?? "",
+      apiMeal.strIngredient2 ?? "",
+      apiMeal.strIngredient3 ?? "",
+      apiMeal.strIngredient4 ?? "",
+      apiMeal.strIngredient5 ?? "",
+      apiMeal.strIngredient6 ?? "",
+      apiMeal.strIngredient7 ?? "",
+      apiMeal.strIngredient8 ?? "",
+      apiMeal.strIngredient9 ?? "",
+    ];
 
-  Map<String, dynamic> toJson() => _$MealToJson(this);
+    return Meal(
+      id: apiMeal.idMeal ?? Uuid.v4().toString(),
+      name: apiMeal.strMeal ?? "Unknown",
+      area: apiMeal.strArea ?? "Unknown area",
+      category: apiMeal.strCategory ?? "Unknown category",
+      description: apiMeal.strIngredient1 ?? "Unknown",
+      ingredients: ingredients,
+      imageUrl: apiMeal.strMealThumb ?? _defaultImageUrl,
+    );
+  }
+
+  static const _defaultImageUrl =
+      "https://www.bahroma1.ru/templates/bahroma1/img/slider/2300x1500_61b11ccbd3b30.jpg";
 }

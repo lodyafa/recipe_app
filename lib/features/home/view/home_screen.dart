@@ -4,6 +4,11 @@ import 'package:recipe_app/core/router/router.dart';
 import 'package:recipe_app/features/home/widgets/widgets.dart';
 import 'package:recipe_app/uikit/colors/colors.dart';
 
+@RoutePage(name: "HomeShellRoute")
+class HomeShellScreen extends AutoRouter {
+  const HomeShellScreen({super.key});
+}
+
 @RoutePage()
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -31,7 +36,10 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.sunny, color: colorScheme.onBackground,),
+                          Icon(
+                            Icons.sunny,
+                            color: colorScheme.onBackground,
+                          ),
                           const SizedBox(width: 8),
                           Text(
                             "Good Morning!",

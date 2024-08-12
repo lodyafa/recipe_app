@@ -2,6 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/uikit/colors/colors.dart';
 
+@RoutePage(name: "FavoritesShellRoute")
+class FavoritesShellScreen extends AutoRouter {
+  const FavoritesShellScreen({super.key});
+}
+
 @RoutePage()
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});

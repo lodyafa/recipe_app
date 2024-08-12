@@ -21,13 +21,13 @@ class _RecipeApiClient implements RecipeApiClient {
   String? baseUrl;
 
   @override
-  Future<Meals> getRandomMeal() async {
+  Future<ApiMeals> getRandomMeal() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Meals>(Options(
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiMeals>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,18 +43,18 @@ class _RecipeApiClient implements RecipeApiClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final _value = Meals.fromJson(_result.data!);
+    final _value = ApiMeals.fromJson(_result.data!);
     return _value;
   }
 
   @override
-  Future<Meals> getMealsByName(String search) async {
+  Future<ApiMeals> getMealsByName(String search) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r's': search};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Meals>(Options(
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiMeals>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -70,18 +70,18 @@ class _RecipeApiClient implements RecipeApiClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final _value = Meals.fromJson(_result.data!);
+    final _value = ApiMeals.fromJson(_result.data!);
     return _value;
   }
 
   @override
-  Future<Meals> getMealsByCategory(String category) async {
+  Future<ApiMeals> getMealsByCategory(String category) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'c': category};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Meals>(Options(
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiMeals>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -97,7 +97,34 @@ class _RecipeApiClient implements RecipeApiClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final _value = Meals.fromJson(_result.data!);
+    final _value = ApiMeals.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
+  Future<ApiMeals> getMealDeatilsByID(String id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'i': id};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<ApiMeals>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'lookup.php',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = ApiMeals.fromJson(_result.data!);
     return _value;
   }
 

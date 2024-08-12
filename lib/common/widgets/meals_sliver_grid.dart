@@ -1,5 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/core/domain/domain.dart';
+import 'package:recipe_app/core/router/router.dart';
+import 'package:recipe_app/features/recipe/recipe_bloc/recipe_bloc.dart';
 import 'package:recipe_app/uikit/cards/cards.dart';
 
 class MealsSliverGrid extends StatelessWidget {
@@ -22,7 +26,15 @@ class MealsSliverGrid extends StatelessWidget {
       itemCount: meals.length,
       itemBuilder: (context, index) {
         final meal = meals[index];
-        return MealGridCard(meal: meal);
+        return GestureDetector(
+          onTap: () {
+            BlocProvider.of<RecipeBloc>(context).add(RecipeLoadEvent(meal.id));
+            AutoRouter.of(context).push(const RecipeRoute());
+          },
+          child: MealGridCard(
+            meal: meal,
+          ),
+        );
       },
     );
   }

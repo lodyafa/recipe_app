@@ -21,7 +21,7 @@ class HomeCategoriesBloc
     Emitter<HomeCategoriesState> emit,
   ) async {
     try {
-       final prevState = state;
+      final prevState = state;
       final category = event.category;
 
       if (state is! HomeCategoriesLoadingState) {
@@ -32,7 +32,7 @@ class HomeCategoriesBloc
         case MealCategory.beef:
           List<Meal> meals =
               await _mealsRepository.getMealsByCategory(category.toString());
-         
+
           if (prevState is HomeCategoriesLoadedState) {
             return emit(prevState.copyWith(beefCategoryMeals: meals));
           }

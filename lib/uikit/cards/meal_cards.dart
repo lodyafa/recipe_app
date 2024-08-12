@@ -11,9 +11,6 @@ class MealGridCard extends StatelessWidget {
 
   final Meal meal;
 
-  static const String _defaultImage =
-      "https://cdn-icons-png.flaticon.com/512/5519/5519632.png";
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = AppColorScheme.of(context);
@@ -43,9 +40,7 @@ class MealGridCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   image: DecorationImage(
-                    image: NetworkImage(
-                      meal.strMealThumb ?? _defaultImage,
-                    ),
+                    image: NetworkImage(meal.imageUrl),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -53,7 +48,7 @@ class MealGridCard extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Text(
-              meal.strMeal ?? "Null",
+              meal.name,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: colorScheme.onBackground,
@@ -99,10 +94,7 @@ class MealListCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 image: DecorationImage(
-                  image: NetworkImage(
-                    meal.strMealThumb ??
-                        "https://natashaskitchen.com/wp-content/uploads/2023/05/Taco-Bowls-SQ.jpg",
-                  ),
+                  image: NetworkImage(meal.imageUrl),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -110,7 +102,7 @@ class MealListCard extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: Text(
-                meal.strMeal ?? "Null",
+                meal.name,
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   color: colorScheme.onBackground,

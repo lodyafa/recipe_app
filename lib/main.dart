@@ -6,6 +6,7 @@ import 'package:recipe_app/core/blocs/theme_cubit/theme_cubit.dart';
 import 'package:recipe_app/core/domain/repositories/repositories.dart';
 import 'package:recipe_app/core/router/router.dart';
 import 'package:recipe_app/features/home/blocs/home_categories_bloc/home_categories_bloc.dart';
+import 'package:recipe_app/features/recipe/recipe_bloc/recipe_bloc.dart';
 import 'package:recipe_app/features/search/search_bloc/search_bloc.dart';
 import 'package:recipe_app/storage/theme_mode_storage/theme_mode_storage_impl.dart';
 import 'package:recipe_app/uikit/theme/app_theme_data.dart';
@@ -73,6 +74,12 @@ class _RecipeAppState extends State<RecipeApp> {
             create: (context) => ThemeCubit(
               themeModeRepository:
                   RepositoryProvider.of<ThemeModeRepositoryInterface>(context),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => RecipeBloc(
+              mealsRepository:
+                  RepositoryProvider.of<MealsRepositoryInterface>(context),
             ),
           ),
         ],

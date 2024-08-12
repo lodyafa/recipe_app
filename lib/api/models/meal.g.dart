@@ -6,17 +6,17 @@ part of 'meal.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Meals _$MealsFromJson(Map<String, dynamic> json) => Meals(
+ApiMeals _$ApiMealsFromJson(Map<String, dynamic> json) => ApiMeals(
       meals: (json['meals'] as List<dynamic>?)
-          ?.map((e) => Meal.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ApiMeal.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$MealsToJson(Meals instance) => <String, dynamic>{
+Map<String, dynamic> _$ApiMealsToJson(ApiMeals instance) => <String, dynamic>{
       'meals': instance.meals,
     };
 
-Meal _$MealFromJson(Map<String, dynamic> json) => Meal(
+ApiMeal _$ApiMealFromJson(Map<String, dynamic> json) => ApiMeal(
       idMeal: json['idMeal'] as String?,
       strMeal: json['strMeal'] as String?,
       strCategory: json['strCategory'] as String?,
@@ -67,7 +67,7 @@ Meal _$MealFromJson(Map<String, dynamic> json) => Meal(
       strMeasure20: json['strMeasure20'] as String?,
     );
 
-Map<String, dynamic> _$MealToJson(Meal instance) => <String, dynamic>{
+Map<String, dynamic> _$ApiMealToJson(ApiMeal instance) => <String, dynamic>{
       'idMeal': instance.idMeal,
       'strMeal': instance.strMeal,
       'strCategory': instance.strCategory,
