@@ -1,3 +1,3 @@
 export 'app_initializer.dart';
-export 'config.dart';
+export 'app_config.dart';
 export 'recipe_app.dart';

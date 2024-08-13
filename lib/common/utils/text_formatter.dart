@@ -1,7 +1,1 @@
-
-
-class TextFormatter {
-
-  
-
-}
+class TextFormatter {}

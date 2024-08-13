@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/core/domain/domain.dart';
-import 'package:recipe_app/features/home/blocs/blocs.dart';
+import 'package:recipe_app/features/home/home.dart';
 import 'package:recipe_app/uikit/colors/colors.dart';
 
 class CategoriesListView extends StatefulWidget {

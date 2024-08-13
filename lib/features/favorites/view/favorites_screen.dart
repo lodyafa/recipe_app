@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_app/common/common.dart';
+import 'package:recipe_app/features/favorites/favorites.dart';
 import 'package:recipe_app/uikit/colors/colors.dart';
 
 @RoutePage(name: "FavoritesShellRoute")
@@ -28,9 +31,22 @@ class FavoritesScreen extends StatelessWidget {
             ),
             surfaceTintColor: Colors.transparent,
           ),
-          const SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            // sliver: MealsSliverList(),
+          BlocBuilder<FavoritesBloc, FavoritesState>(
+            builder: (context, state) {
+              if (state is FavoritesLoadedState) {
+                return SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  sliver: MealsSliverList(
+                    meals: state.favoriteMeals,
+                  ),
+                );
+              }
+              return const SliverToBoxAdapter(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            },
           ),
         ],
       ),

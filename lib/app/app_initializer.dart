@@ -4,6 +4,7 @@ import 'package:recipe_app/api/api.dart';
 import 'package:recipe_app/app/app.dart';
 import 'package:recipe_app/core/blocs/blocs.dart';
 import 'package:recipe_app/core/domain/domain.dart';
+import 'package:recipe_app/features/favorites/favorites.dart';
 import 'package:recipe_app/features/home/home.dart';
 import 'package:recipe_app/features/recipe/recipe.dart';
 import 'package:recipe_app/features/search/search.dart';
@@ -34,6 +35,9 @@ class AppInitializer extends StatelessWidget {
           create: (context) =>
               ThemeModeRepository(themeModeStorage: themeModeStorage),
         ),
+        RepositoryProvider<FavoritesRepositoryInterface>(
+          create: (context) => FavoritesRepository(realm: config.realm),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -47,6 +51,8 @@ class AppInitializer extends StatelessWidget {
             create: (context) => SearchBloc(
               mealsRepository:
                   RepositoryProvider.of<MealsRepositoryInterface>(context),
+              favoritesRepository:
+                  RepositoryProvider.of<FavoritesRepositoryInterface>(context),
             ),
           ),
           BlocProvider(
@@ -59,6 +65,12 @@ class AppInitializer extends StatelessWidget {
             create: (context) => RecipeBloc(
               mealsRepository:
                   RepositoryProvider.of<MealsRepositoryInterface>(context),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => FavoritesBloc(
+              favoritesRepository:
+                  RepositoryProvider.of<FavoritesRepositoryInterface>(context),
             ),
           ),
         ],

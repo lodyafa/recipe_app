@@ -14,8 +14,11 @@ EventTransformer<E> debounceDroppable<E>(Duration duration) {
 }
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  SearchBloc({required MealsRepositoryInterface mealsRepository})
-      : _mealsRepository = mealsRepository,
+  SearchBloc({
+    required MealsRepositoryInterface mealsRepository,
+    required FavoritesRepositoryInterface favoritesRepository,
+  })  : _mealsRepository = mealsRepository,
+        _favoritesRepository = favoritesRepository,
         super(SearchInitialState()) {
     on<SearchMealEvent>(
       _onSearch,
@@ -26,19 +29,40 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   final MealsRepositoryInterface _mealsRepository;
+  final FavoritesRepositoryInterface _favoritesRepository;
 
   Future<void> _onSearch(
     SearchMealEvent event,
     Emitter<SearchState> emit,
   ) async {
-    if (event.query.isEmpty && state is! SearchInitialState) {
-      return emit(SearchInitialState());
+    try {
+      if (event.query.isEmpty && state is! SearchInitialState) {
+        return emit(SearchInitialState());
+      }
+      if (event.query.length < 3) return;
+      if (state is! SearchLoadingState) {
+        emit(SearchLoadingState());
+      }
+
+      List<Meal> searchedMeals =
+          await _mealsRepository.getMealsByName(event.query);
+
+      for (int i = 0; i < searchedMeals.length; i++) {
+        final meal = searchedMeals[i];
+
+        bool isFavorite = await _favoritesRepository.isFavorite(meal.id);
+        if (isFavorite) {
+          final updatedMeal = meal.copyWith(isFavorite: true);
+          searchedMeals[i] = updatedMeal;
+        }
+      }
+
+      emit(SearchLoadedState(meals: searchedMeals));
+    } catch (exception, stackTrace) {
+      emit(SearchFailureState(exception: exception));
+      print("$exception $stackTrace");
     }
-    if (event.query.length < 3) return;
-    if (state is! SearchLoadingState) {
-      emit(SearchLoadingState());
-    }
-    final meals = await _mealsRepository.getMealsByName(event.query);
-    emit(SearchLoadedState(meals: meals));
   }
+
+  // Написать метод обновления найденного списка с помощью copywith у состояния
 }

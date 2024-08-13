@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/common/widgets/widgets.dart';
 import 'package:recipe_app/core/domain/domain.dart';
-import 'package:recipe_app/features/home/blocs/blocs.dart';
+import 'package:recipe_app/features/home/home.dart';
 
 @RoutePage(name: "PastaCategoryRoute")
 class PastaCategoryTab extends StatelessWidget {

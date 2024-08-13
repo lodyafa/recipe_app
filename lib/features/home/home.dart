@@ -1,2 +1,2 @@
 export 'view/view.dart';
-export 'blocs/blocs.dart';
+export 'home_categories_bloc/home_categories_bloc.dart';

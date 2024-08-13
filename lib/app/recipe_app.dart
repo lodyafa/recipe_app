@@ -8,10 +8,10 @@ import 'package:recipe_app/uikit/uikit.dart';
 class RecipeApp extends StatefulWidget {
   const RecipeApp({
     super.key,
-    required this.config,
+    required this.appConfig,
   });
 
-  final AppConfig config;
+  final AppConfig appConfig;
 
   @override
   State<RecipeApp> createState() => _RecipeAppState();
@@ -23,7 +23,7 @@ class _RecipeAppState extends State<RecipeApp> {
     final router = AppRouter();
 
     return AppInitializer(
-      config: widget.config,
+      config: widget.appConfig,
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return MaterialApp.router(
