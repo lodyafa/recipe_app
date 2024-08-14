@@ -11,9 +11,25 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   })  : _favoritesRepository = favoritesRepository,
         super(FavoritesLoadingState()) {
     on<AddOrRemoveFromFavoritesEvent>(_onAddOrRemoveFromFavorites);
+    on<LoadFavoritesEvent>(_onLoadFavorites);
+    add(LoadFavoritesEvent());
   }
 
   final FavoritesRepositoryInterface _favoritesRepository;
+
+  Future<void> _onLoadFavorites(
+    LoadFavoritesEvent event,
+    Emitter<FavoritesState> emit,
+  ) async {
+    try {
+      final List<Meal> favoriteMeals =
+          await _favoritesRepository.getFavoritesMeals();
+      emit(FavoritesLoadedState(favoriteMeals: favoriteMeals));
+    } catch (exception, stackTrace) {
+      emit(FavoritesFailureState(exception: exception));
+      print("$exception $stackTrace");
+    }
+  }
 
   Future<void> _onAddOrRemoveFromFavorites(
     AddOrRemoveFromFavoritesEvent event,

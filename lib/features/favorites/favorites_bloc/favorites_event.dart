@@ -2,6 +2,11 @@ part of 'favorites_bloc.dart';
 
 sealed class FavoritesEvent extends Equatable {}
 
+class LoadFavoritesEvent extends FavoritesEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class AddOrRemoveFromFavoritesEvent extends FavoritesEvent {
   final Meal meal;
 

@@ -64,9 +64,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     RecipeRoute.name: (routeData) {
+      final args = routeData.argsAs<RecipeRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const RecipeScreen(),
+        child: RecipeScreen(
+          key: args.key,
+          meal: args.meal,
+        ),
       );
     },
     RootRoute.name: (routeData) {
@@ -210,16 +214,39 @@ class PastaCategoryRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [RecipeScreen]
-class RecipeRoute extends PageRouteInfo<void> {
-  const RecipeRoute({List<PageRouteInfo>? children})
-      : super(
+class RecipeRoute extends PageRouteInfo<RecipeRouteArgs> {
+  RecipeRoute({
+    Key? key,
+    required Meal meal,
+    List<PageRouteInfo>? children,
+  }) : super(
           RecipeRoute.name,
+          args: RecipeRouteArgs(
+            key: key,
+            meal: meal,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'RecipeRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<RecipeRouteArgs> page = PageInfo<RecipeRouteArgs>(name);
+}
+
+class RecipeRouteArgs {
+  const RecipeRouteArgs({
+    this.key,
+    required this.meal,
+  });
+
+  final Key? key;
+
+  final Meal meal;
+
+  @override
+  String toString() {
+    return 'RecipeRouteArgs{key: $key, meal: $meal}';
+  }
 }
 
 /// generated route for

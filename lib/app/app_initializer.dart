@@ -45,6 +45,8 @@ class AppInitializer extends StatelessWidget {
             create: (context) => HomeCategoriesBloc(
               mealsRepository:
                   RepositoryProvider.of<MealsRepositoryInterface>(context),
+              favoritesRepository:
+                  RepositoryProvider.of<FavoritesRepositoryInterface>(context),
             ),
           ),
           BlocProvider(
@@ -65,6 +67,8 @@ class AppInitializer extends StatelessWidget {
             create: (context) => RecipeBloc(
               mealsRepository:
                   RepositoryProvider.of<MealsRepositoryInterface>(context),
+              favoritesRepository:
+                  RepositoryProvider.of<FavoritesRepositoryInterface>(context),
             ),
           ),
           BlocProvider(

@@ -29,7 +29,7 @@ class MealsSliverGrid extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             BlocProvider.of<RecipeBloc>(context).add(RecipeLoadEvent(meal.id));
-            AutoRouter.of(context).push(const RecipeRoute());
+            AutoRouter.of(context).push(RecipeRoute(meal: meal));
           },
           child: MealGridCard(
             meal: meal,

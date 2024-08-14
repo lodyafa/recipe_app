@@ -11,11 +11,9 @@ class MealsSliverList extends StatelessWidget {
   const MealsSliverList({
     super.key,
     required this.meals,
-
   });
 
   final List<Meal> meals;
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +30,10 @@ class MealsSliverList extends StatelessWidget {
             onTap: () {
               BlocProvider.of<RecipeBloc>(context)
                   .add(RecipeLoadEvent(meal.id));
-              AutoRouter.of(context).push(const RecipeRoute());
+              AutoRouter.of(context).push(RecipeRoute(meal: meal));
             },
             child: MealListCard(
               meal: meals[index],
-
             ),
           ),
         );

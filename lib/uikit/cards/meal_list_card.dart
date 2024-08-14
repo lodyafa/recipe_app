@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/core/domain/domain.dart';
 import 'package:recipe_app/features/favorites/favorites.dart';
@@ -53,14 +54,34 @@ class MealListCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            IconButton(
-              onPressed: () => _addOrRemoveFromfavorites(context, meal),
-              icon: Icon(
-                meal.isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: meal.isFavorite
-                    ? colorScheme.error
-                    : colorScheme.onBackground,
-              ),
+            BlocBuilder<FavoritesBloc, FavoritesState>(
+              buildWhen: (previous, current) {
+                return (current is FavoritesLoadedState);
+              },
+              builder: (context, state) {
+                bool isFavorite = false;
+                if (state is FavoritesLoadedState) {
+                  for (var favMeal in state.favoriteMeals) {
+                    if (meal.id == favMeal.id) {
+                      isFavorite = true;
+                    }
+                  }
+                }
+
+                return Animate(
+                  key: ValueKey(isFavorite),
+                  effects: const [FadeEffect()],
+                  child: IconButton(
+                    onPressed: () => _addOrRemoveFromfavorites(context, meal),
+                    icon: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite
+                          ? colorScheme.primary
+                          : colorScheme.onBackground,
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),

@@ -50,7 +50,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       for (int i = 0; i < searchedMeals.length; i++) {
         final meal = searchedMeals[i];
 
-        bool isFavorite = await _favoritesRepository.isFavorite(meal.id);
+        final bool isFavorite = await _favoritesRepository.isFavorite(meal.id);
         if (isFavorite) {
           final updatedMeal = meal.copyWith(isFavorite: true);
           searchedMeals[i] = updatedMeal;
