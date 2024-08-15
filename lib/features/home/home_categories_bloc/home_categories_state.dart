@@ -21,21 +21,29 @@ final class HomeCategoriesLoadedState extends HomeCategoriesState {
     this.beefCategoryMeals = const [],
     this.chickenCategoryMeals = const [],
     this.dessertCategoryMeals = const [],
+    this.prevLoadedCategory = MealCategory.beef,
+    this.curLoadedCategory = MealCategory.beef,
   });
 
   final List<Meal> beefCategoryMeals;
   final List<Meal> chickenCategoryMeals;
   final List<Meal> dessertCategoryMeals;
+  final MealCategory prevLoadedCategory;
+  final MealCategory curLoadedCategory;
 
   HomeCategoriesLoadedState copyWith({
     List<Meal>? beefCategoryMeals,
     List<Meal>? chickenCategoryMeals,
     List<Meal>? dessertCategoryMeals,
+    MealCategory? prevLoadedCategory,
+    MealCategory? curLoadedCategory,
   }) {
     return HomeCategoriesLoadedState(
       beefCategoryMeals: beefCategoryMeals ?? this.beefCategoryMeals,
       chickenCategoryMeals: chickenCategoryMeals ?? this.chickenCategoryMeals,
       dessertCategoryMeals: dessertCategoryMeals ?? this.dessertCategoryMeals,
+      prevLoadedCategory: prevLoadedCategory ?? this.prevLoadedCategory,
+      curLoadedCategory: curLoadedCategory ?? this.curLoadedCategory,
     );
   }
 

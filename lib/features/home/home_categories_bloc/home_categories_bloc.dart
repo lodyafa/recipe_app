@@ -25,8 +25,14 @@ class HomeCategoriesBloc
     Emitter<HomeCategoriesState> emit,
   ) async {
     try {
-      final prevState = state;
+      final curState = state;
       final category = event.category;
+      // print(category);
+      if (curState is HomeCategoriesLoadedState &&
+          curState.prevLoadedCategory == category) {
+        // print("HERE");
+        return;
+      }
 
       if (state is! HomeCategoriesLoadingState) {
         emit(HomeCategoriesLoadingState(loadingCategory: event.category));
@@ -43,22 +49,34 @@ class HomeCategoriesBloc
           meals[i] = meal.copyWith(isFavorite: isFavorite);
         }
       }
-      
+
       switch (category) {
         case MealCategory.beef:
-          if (prevState is HomeCategoriesLoadedState) {
-            return emit(prevState.copyWith(beefCategoryMeals: meals));
+          if (curState is HomeCategoriesLoadedState) {
+            return emit(curState.copyWith(
+              beefCategoryMeals: meals,
+              curLoadedCategory: category,
+              prevLoadedCategory: curState.curLoadedCategory,
+            ));
           }
           return emit(HomeCategoriesLoadedState(beefCategoryMeals: meals));
         case MealCategory.chicken:
-          if (prevState is HomeCategoriesLoadedState) {
-            return emit(prevState.copyWith(chickenCategoryMeals: meals));
+          if (curState is HomeCategoriesLoadedState) {
+            return emit(curState.copyWith(
+              chickenCategoryMeals: meals,
+              curLoadedCategory: category,
+              prevLoadedCategory: curState.curLoadedCategory,
+            ));
           }
           return emit(HomeCategoriesLoadedState(chickenCategoryMeals: meals));
 
         case MealCategory.dessert:
-          if (prevState is HomeCategoriesLoadedState) {
-            return emit(prevState.copyWith(chickenCategoryMeals: meals));
+          if (curState is HomeCategoriesLoadedState) {
+            return emit(curState.copyWith(
+              chickenCategoryMeals: meals,
+              curLoadedCategory: category,
+              prevLoadedCategory: curState.curLoadedCategory,
+            ));
           }
           return emit(HomeCategoriesLoadedState(dessertCategoryMeals: meals));
 

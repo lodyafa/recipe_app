@@ -1,35 +1,95 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_app/features/recipe/recipe.dart';
+import 'package:recipe_app/core/domain/domain.dart';
+import 'package:recipe_app/uikit/uikit.dart';
 
-class RecipeDetails extends StatelessWidget {
-  const RecipeDetails({
+class RecipeDetailsBody extends StatelessWidget {
+  const RecipeDetailsBody({
     super.key,
+    required this.meal,
+    required this.scrollController,
   });
+
+  final Meal meal;
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RecipeBloc, RecipeState>(
-      builder: (context, state) {
-        if (state is RecipeLoadedState) {
-          return RecipeDetailsLoadedBody(
-            meal: state.meal,
-          );
-        }
-        if (state is RecipeLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (state is RecipeFailureState) {
-          return const Center(
-            child: Text("Something went wrong..."),
-          );
-        }
-        return const Center(
-          child: Text("Recipe not found"),
-        );
-      },
+    final colorScheme = AppColorScheme.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ListView(
+        controller: scrollController,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.network(
+              meal.imageUrl,
+              width: double.infinity,
+              height: 300,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Center(
+            child: Text(
+              textAlign: TextAlign.center,
+              meal.name,
+              style: TextStyle(
+                color: colorScheme.onBackground,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          Center(
+            child: Text(
+              textAlign: TextAlign.center,
+              meal.area,
+              style: TextStyle(
+                color: colorScheme.onBackground,
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Center(
+            child: Text(
+              "Ingredients:",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: colorScheme.onBackground,
+              ),
+            ),
+          ),
+          Text(
+            meal.ingredients
+                .where((ingredient) => ingredient.isNotEmpty)
+                .join(', '),
+            style: TextStyle(
+              color: colorScheme.onBackground,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Center(
+            child: Text(
+              "Instructions:",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: colorScheme.onBackground,
+              ),
+            ),
+          ),
+          Text(
+            meal.instructions,
+            style: TextStyle(
+              color: colorScheme.onBackground,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

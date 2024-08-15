@@ -27,6 +27,8 @@ class _RecipeAppState extends State<RecipeApp> {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return MaterialApp.router(
+            
+            debugShowCheckedModeBanner: false,
             title: 'Recipe App',
             theme: AppThemeData.lightTheme,
             darkTheme: AppThemeData.darkTheme,

@@ -45,17 +45,17 @@ class _CategoriesListViewState extends State<CategoriesListView> {
   }
 
   void _listenToTabScroll() {
-    final tabController = widget.tabController;
+    // final tabController = widget.tabController;
 
-    if (tabController.index == 0) return;
+    // if (tabController.index == 0) return;
 
-    BlocProvider.of<HomeCategoriesBloc>(context).add(
-      HomeLoadCategoryEvent(
-        category: MealCategory.fromString(
-          _categories[tabController.index],
-        ),
-      ),
-    );
+    // BlocProvider.of<HomeCategoriesBloc>(context).add(
+    //   HomeLoadCategoryEvent(
+    //     category: MealCategory.fromString(
+    //       _categories[tabController.index],
+    //     ),
+    //   ),
+    // );
   }
 
   bool _removePadding() {
@@ -78,7 +78,7 @@ class _CategoriesListViewState extends State<CategoriesListView> {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: () => widget.tabController.animateTo(index),
+              onTap: () => _onCategoryPressed(index),
               child: Container(
                 alignment: Alignment.center,
                 width: 110,
@@ -104,6 +104,17 @@ class _CategoriesListViewState extends State<CategoriesListView> {
         ),
       ),
     );
+  }
+
+  void _onCategoryPressed(int index) {
+    BlocProvider.of<HomeCategoriesBloc>(context).add(
+      HomeLoadCategoryEvent(
+        category: MealCategory.fromString(
+          _categories[index],
+        ),
+      ),
+    );
+    widget.tabController.animateTo(index);
   }
 
   @override

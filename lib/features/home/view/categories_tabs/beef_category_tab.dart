@@ -13,10 +13,12 @@ class BeefCategoryTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCategoriesBloc, HomeCategoriesState>(
       buildWhen: (previous, current) {
-        if ((current is HomeCategoriesLoadingState &&
+        bool statement = ((current is HomeCategoriesLoadingState &&
                 current.loadingCategory == MealCategory.beef) ||
-            (current is HomeCategoriesLoadedState)) return true;
-        return false;
+            (current is HomeCategoriesLoadedState &&
+                current.curLoadedCategory == MealCategory.beef));
+
+        return statement;
       },
       builder: (context, state) {
         return CustomScrollView(
